@@ -20,7 +20,7 @@ resources:
 variables:
   - group: "package_managers"
   - name: python_version
-    value: 3.8
+    value: 3.12
 jobs:
   - job: build
     displayName: Build
