@@ -37,6 +37,7 @@ jobs:
       - task: gitversion/execute@0
         displayName: Use GitVersion
       - script: |
+          python -m pip install pipenv
           pipenv install
           python setup.py sdist
           python -m twine upload ./dist/* --non-interactive -u __token__ -p $(pypi_token)
