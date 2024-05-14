@@ -7,15 +7,22 @@
     PyScaffold helps you to put up the scaffold of your new Python project.
     Learn more under: https://pyscaffold.org/
 """
+import importlib.machinery
+import importlib.metadata
+import importlib.resources
+import importlib.util
 import sys
 
-from pkg_resources import VersionConflict, require
 from setuptools import setup
+import importlib
+
 
 try:
-    require("setuptools>=38.3")
-except VersionConflict:
-    print("Error: version of setuptools is too old (<38.3)!")
+    spec = importlib.metadata.distribution("setuptools")
+
+except importlib.metadata.PackageNotFoundError as err:
+    print(err)
+    print("Error: version of setuptools is too old (<69.5.1)!")
     sys.exit(1)
 
 with open("requirements.txt") as f:
