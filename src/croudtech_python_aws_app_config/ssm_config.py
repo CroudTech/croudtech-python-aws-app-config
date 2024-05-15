@@ -3,7 +3,7 @@ import json
 import os
 from botocore import endpoint
 import yaml
-from collections import MutableMapping
+from collections.abc import MutableMapping
 import logging
 import re
 from click._compat import open_stream
@@ -111,7 +111,7 @@ class SsmConfig:
             else:
                 raise Exception("Couldn't allocate Redis Database")
         return parameters
-    
+
     def get_redis_db(self):
         parameters = self.get_parameters()
         redis_db, redis_host, redis_port = self.find_redis_config(parameters)
@@ -137,7 +137,7 @@ class SsmConfig:
                 redis_db = redis_config_instance.get_redis_database(allocate)
                 return redis_db, redis_host, redis_port
         return None, None, None
-    
+
     @property
     def current_parameters(self):
         if not hasattr(self, "_current_parameters"):
@@ -240,7 +240,7 @@ class SsmConfig:
                 else:
                     parameter_name = parameter["Name"].replace(path, "")
                 parameter_value = self.parse_fetched_parameter(parameter)
-                parameters[parameter_name] = parameter_value  
+                parameters[parameter_name] = parameter_value
         except botocore.exceptions.ClientError as err:
             logger.debug("Failed to fetch parameters. Invalid token")
             return {}
@@ -257,11 +257,11 @@ class SsmConfig:
             parameters = paginator.paginate(
                 Path=path,
                 Recursive=True,
-                WithDecryption=True,    
+                WithDecryption=True,
             )
-            
+
             self.fetched_parameters["path"] = parameters.build_full_result()["Parameters"]
-            
+
             for item in self.fetched_parameters["path"]:
                 logger.debug("Found Parameter %s." % item["Name"])
             logger.debug("Fetched parameters from AWS SSM for path %s." % path)
