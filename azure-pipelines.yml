@@ -41,7 +41,7 @@ jobs:
           poetry install
           poetry version $(semVer)
           poetry build
-          poetry publish --password $(pypi_token)
+          poetry publish --username __token__ --password $(pypi_token)
   - job: GithubRelease
     dependsOn: build
     displayName: GithubRelease
