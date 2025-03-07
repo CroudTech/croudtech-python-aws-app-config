@@ -14,7 +14,7 @@ pyaml = "^24.4.0"
 PyYAML = "^6.0.1"
 loguru = "^0.7.2"
 http-status-codes = "^1.0.3"
-redis = "^5.0.4"
+redis = "^4.4.4"
 requests = "^2.31.0"
 
 [tool.poetry.group.dev.dependencies]
